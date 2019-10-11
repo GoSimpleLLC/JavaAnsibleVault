@@ -30,8 +30,6 @@ public class Util
     private static Logger logger = LoggerFactory.getLogger(Util.class);
 
     final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    final protected static String LINE_BREAK = "\n";
-    final protected static String CHAR_ENCODING = "UTF-8";
 
     public static String join(String [] datalines)
     {
@@ -63,7 +61,7 @@ public class Util
             result += String.format("%02x", val);
             colIdx++;
             if (lineLength > 0 && colIdx>=lineLength/2) {
-                result += LINE_BREAK;
+                result += System.lineSeparator();
                 colIdx=0;
             }
         }
@@ -73,7 +71,7 @@ public class Util
 
     public static VaultInfo getVaultInfo(String vaultData)
     {
-        String infoString =  vaultData.substring(0, vaultData.indexOf(LINE_BREAK));
+        String infoString =  vaultData.substring(0, vaultData.indexOf(System.lineSeparator()));
         return new VaultInfo(infoString);
     }
 
@@ -84,18 +82,18 @@ public class Util
 
     public static String cleanupData(String vaultData)
     {
-        return vaultData.substring(vaultData.indexOf(LINE_BREAK) + 1);
+        return vaultData.substring(vaultData.indexOf(System.lineSeparator()));
     }
 
     public static byte[] getVaultData(String vaultData)
     {
-        String rawData = join(cleanupData(vaultData).split(LINE_BREAK));
+        String rawData = join(cleanupData(vaultData).split(System.lineSeparator()));
         return unhex(rawData);
     }
 
     public static byte[] getVaultData(byte [] vaultData)
     {
-        String rawData = join(cleanupData(new String(vaultData)).split(LINE_BREAK));
+        String rawData = join(cleanupData(new String(vaultData)).split(System.lineSeparator()));
         return unhex(rawData);
     }
 

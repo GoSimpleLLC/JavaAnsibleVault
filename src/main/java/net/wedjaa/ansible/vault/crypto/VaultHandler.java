@@ -43,7 +43,7 @@ public class VaultHandler
         CypherInterface cypherInstance = CypherFactory.getCypher(cypher);
         byte [] vaultData = cypherInstance.encrypt(cleartext, password);
         String vaultDataString = new String(vaultData);
-        String vaultPackage = cypherInstance.infoLine() + "\n" + vaultDataString;
+        String vaultPackage = cypherInstance.infoLine() + System.lineSeparator() + vaultDataString;
         return vaultPackage.getBytes();
     }
 
