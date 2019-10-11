@@ -111,4 +111,36 @@ public class VaultHandlerTest
         }
     }
 
+    @Test
+    public void testStreamValidVaultLF()
+    {
+        logger.info("Testing decoding vault Stream with lf - Valid password ");
+        try
+        {
+            ByteArrayOutputStream decodedStream = new ByteArrayOutputStream();
+            InputStream encodedStream = getClass().getClassLoader().getResourceAsStream("test-vault-lf.yml");
+            VaultHandler.decrypt(encodedStream, decodedStream, TEST_PASSWORD);
+            String decoded = new String(decodedStream.toByteArray());
+            assertEquals(DECODED_VAULT, decoded);
+        } catch(Exception ex) {
+            fail("Failed to decode the test vault from stream: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testStreamValidVaultCR()
+    {
+        logger.info("Testing decoding vault Stream with cr - Valid password ");
+        try
+        {
+            ByteArrayOutputStream decodedStream = new ByteArrayOutputStream();
+            InputStream encodedStream = getClass().getClassLoader().getResourceAsStream("test-vault-cr.yml");
+            VaultHandler.decrypt(encodedStream, decodedStream, TEST_PASSWORD);
+            String decoded = new String(decodedStream.toByteArray());
+            assertEquals(DECODED_VAULT, decoded);
+        } catch(Exception ex) {
+            fail("Failed to decode the test vault from stream: " + ex.getMessage());
+        }
+    }
+
 }

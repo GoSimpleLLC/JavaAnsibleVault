@@ -80,6 +80,15 @@ public class Util
         return getVaultInfo(new String(vaultData));
     }
 
+    public static String cleanupInput(String input)
+    {
+        String val = input;
+        val = val.replaceAll("\\r\\n", "\n");
+        val = val.replaceAll("\\r", "\n");
+        val = val.replaceAll("\\n", System.lineSeparator());
+        return val;
+    }
+
     public static String cleanupData(String vaultData)
     {
         return vaultData.substring(vaultData.indexOf(System.lineSeparator()));

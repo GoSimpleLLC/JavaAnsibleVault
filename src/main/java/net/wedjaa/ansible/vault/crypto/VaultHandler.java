@@ -66,7 +66,8 @@ public class VaultHandler
     public static void decrypt(InputStream encryptedVault, OutputStream decryptedVault, String password) throws IOException
     {
         String encryptedValue = IOUtils.toString(encryptedVault, CHAR_ENCODING);
-        decryptedVault.write(decrypt(encryptedValue.getBytes(), password));
+        String cleanedValue = Util.cleanupInput(encryptedValue);
+        decryptedVault.write(decrypt(cleanedValue.getBytes(), password));
     }
 
     public static byte[] decrypt(byte[] encrypted, String password) throws IOException
